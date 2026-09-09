@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PakDee English — ครูส้ม</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF6E9;
+    --ink:#2A1B0E;
+    --orange:#FF7A1A;
+    --orange-dark:#E85D00;
+    --peel:#FFB35C;
+    --leaf:#4FA35C;
+    --yellow:#FFD23F;
+    --mint:#4FCB90;
+    --lav:#8C7CFF;
+    --pink:#FF6FA5;
+    --card:#FFFFFF;
+    --radius:22px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Sarabun',sans-serif;line-height:1.6;}
+  h1,h2,h3,.display{font-family:'Mitr','Sarabun',sans-serif;margin:0;}
+  a{color:inherit;} img{max-width:100%;display:block;}
+
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;
+    background-image:radial-gradient(var(--ink) 1px, transparent 1px);background-size:18px 18px;}
+
+  /* ---------- MASCOT (ครูส้ม) ---------- */
+  .mascot{position:relative;border-radius:50%;
+    background:radial-gradient(circle at 34% 30%, var(--peel), var(--orange) 72%);
+    box-shadow:inset -6px -8px 0 rgba(0,0,0,.12);
+    flex-shrink:0;}
+  .mascot::before{content:"";position:absolute;top:-9%;left:50%;transform:translateX(-50%) rotate(-8deg);
+    width:26%;height:20%;background:var(--leaf);border-radius:0 100% 0 100%;}
+  .mascot .eyes{position:absolute;top:38%;left:50%;transform:translateX(-50%);display:flex;gap:22%;}
+  .mascot .eyes span{width:11%;height:11%;background:var(--ink);border-radius:50%;display:block;}
+  .mascot .mouth{position:absolute;top:58%;left:50%;transform:translateX(-50%);
+    width:22%;height:11%;border-bottom:3px solid var(--ink);border-radius:0 0 50% 50%;}
+  .mascot.sad .mouth{border-bottom:none;border-top:3px solid var(--ink);border-radius:50% 50% 0 0;top:60%;}
+  .mascot.sad .eyes span{border-radius:50% 50% 0 0/60% 60% 0 0;}
+  .mascot.think .mouth{width:14%;border-radius:50%;border:2.5px solid var(--ink);top:58%;}
+  .mascot.xl{width:130px;height:130px;}
+  .mascot.lg{width:80px;height:80px;}
+  .mascot.md{width:56px;height:56px;}
+  .mascot.sm{width:36px;height:36px;}
+  .mascot .eyes span{width:8px;height:8px;}
+  .mascot.xl .eyes span{width:12px;height:12px;}
+  .mascot.lg .eyes span{width:9px;height:9px;}
+  .mascot.md .mouth,.mascot.sm .mouth{border-width:2px;}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-10px) rotate(3deg);}}
+  .mascot.bob{animation:bob 2.6s ease-in-out infinite;}
+  @keyframes pop{0%{transform:scale(.6);}60%{transform:scale(1.15);}100%{transform:scale(1);}}
+  .pop-in{animation:pop .35s ease-out;}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+  .shake{animation:shake .35s ease-in-out;}
+
+  /* ---------- NAV ---------- */
+  .nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:12px 28px;background:rgba(255,246,233,.92);backdrop-filter:blur(6px);border-bottom:3px solid var(--ink);}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Mitr';font-weight:700;font-size:1.25rem;}
+  .nav-links{display:flex;gap:22px;font-weight:500;font-size:.95rem;align-items:center;}
+  .nav-links a{text-decoration:none;}
+  .nav-links a:hover{color:var(--orange-dark);}
+  .score-chip{background:var(--yellow);border:2.5px solid var(--ink);border-radius:999px;padding:6px 14px;
+    font-family:'Mitr';font-weight:700;font-size:.85rem;display:flex;align-items:center;gap:6px;transition:transform .2s;}
+  .score-chip.bump{transform:scale(1.18);}
+  .nav-cta{background:var(--ink);color:var(--cream);border:none;padding:10px 18px;border-radius:999px;
+    font-family:'Mitr';font-weight:600;cursor:pointer;font-size:.9rem;}
+  .nav-cta:hover{background:var(--orange-dark);}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:56px 28px 40px;
+    display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;}
+  .eyebrow-chip{display:inline-flex;align-items:center;gap:8px;background:var(--yellow);border:2.5px solid var(--ink);
+    padding:6px 14px;border-radius:999px;font-weight:600;font-size:.85rem;transform:rotate(-2deg);}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);line-height:1.08;margin:16px 0 18px;}
+  .hero h1 .pop{color:var(--orange);}
+  .hero p{font-size:1.05rem;max-width:46ch;margin-bottom:24px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{font-family:'Mitr';font-weight:600;border:3px solid var(--ink);padding:13px 26px;border-radius:999px;
+    cursor:pointer;font-size:1rem;box-shadow:5px 5px 0 var(--ink);transition:transform .12s,box-shadow .12s;}
+  .btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+  .btn-primary{background:var(--orange);color:#fff;}
+  .btn-ghost{background:var(--cream);color:var(--ink);}
+
+  .hero-art{position:relative;display:flex;flex-direction:column;align-items:center;gap:16px;}
+  .hero-bubble{background:#fff;border:3px solid var(--ink);border-radius:20px;padding:12px 16px;font-weight:600;
+    box-shadow:5px 5px 0 var(--ink);max-width:250px;transform:rotate(-2deg);}
+  .hero-bubble small{display:block;font-weight:400;opacity:.7;font-size:.75rem;margin-top:3px;}
+
+  /* ---------- SECTIONS ---------- */
+  .section{max-width:1180px;margin:0 auto;padding:56px 28px;position:relative;z-index:1;}
+  .section-head{max-width:640px;margin-bottom:32px;}
+  .section-head h2{font-size:clamp(1.6rem,3.4vw,2.3rem);}
+  .section-head p{color:#5a4a3a;margin-top:10px;}
+
+  .pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .pillar{background:var(--card);border:3px solid var(--ink);border-radius:var(--radius);padding:20px 18px;
+    box-shadow:6px 6px 0 var(--ink);}
+  .pillar .num{width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--cream);
+    display:flex;align-items:center;justify-content:center;font-family:'Mitr';font-weight:700;margin-bottom:10px;font-size:.95rem;}
+  .pillar h3{font-size:1.02rem;margin-bottom:6px;} .pillar p{font-size:.86rem;color:#5a4a3a;margin:0;}
+
+  .unit-wrap{background:var(--card);border:3px solid var(--ink);border-radius:28px;box-shadow:8px 8px 0 var(--ink);overflow:hidden;}
+  .unit-head{background:linear-gradient(120deg,var(--pink),var(--orange));color:#fff;padding:26px 30px;
+    display:flex;align-items:center;gap:20px;}
+  .unit-badge{background:#fff;color:var(--pink);border-radius:50%;width:74px;height:74px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid var(--ink);
+    font-family:'Mitr';flex-shrink:0;}
+  .unit-badge span{font-size:.68rem;font-weight:600;} .unit-badge strong{font-size:1.5rem;line-height:1;}
+  .unit-head h2{font-size:clamp(1.4rem,3vw,2rem);} .unit-head .sub{opacity:.92;font-size:.9rem;margin-top:4px;}
+  .unit-body{padding:28px 30px 32px;display:grid;gap:26px;}
+  .tag-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .tag{font-family:'Mitr';font-weight:600;font-size:.83rem;background:var(--yellow);border:2.5px solid var(--ink);
+    border-radius:999px;padding:5px 14px;}
+  .tag.gram{background:var(--mint);} .tag.play{background:var(--lav);color:#fff;}
+  .hint{font-size:.82rem;color:#8a7862;margin-left:4px;}
+
+  /* flip vocab cards */
+  .word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(126px,1fr));gap:10px;perspective:600px;}
+  .word-chip{position:relative;height:52px;cursor:pointer;}
+  .word-inner{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d;}
+  .word-chip.flipped .word-inner{transform:rotateY(180deg);}
+  .word-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;border:2px dashed var(--ink);
+    display:flex;align-items:center;justify-content:center;text-align:center;font-weight:600;font-size:.88rem;padding:4px;background:var(--cream);}
+  .word-face.back{transform:rotateY(180deg);background:var(--yellow);border-style:solid;}
+  .word-chip:hover .word-face.front{background:#FFE6C4;}
+
+  .pattern-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .pattern-card{background:#FFF0DA;border:2.5px solid var(--ink);border-radius:16px;padding:14px 16px;}
+  .pattern-card .p1{font-weight:700;margin-bottom:4px;} .pattern-card .p2{font-size:.87rem;color:#5a4a3a;}
+
+  .builder{background:#EFEBFF;border:3px solid var(--ink);border-radius:20px;padding:22px;}
+  .builder-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px;}
+  select{font-family:'Sarabun';font-weight:600;font-size:1rem;border:2.5px solid var(--ink);border-radius:12px;
+    padding:10px 12px;background:#fff;cursor:pointer;}
+  .builder-output{font-family:'Mitr';font-size:1.2rem;background:#fff;border:3px solid var(--ink);border-radius:16px;
+    padding:15px 18px;min-height:28px;}
+  .check-btn{margin-top:14px;background:var(--ink);color:#fff;border:none;border-radius:999px;padding:11px 22px;
+    font-family:'Mitr';font-weight:600;cursor:pointer;}
+  .feedback{margin-top:14px;font-weight:600;display:none;padding:12px 16px;border-radius:14px;border:2.5px solid var(--ink);
+    align-items:center;gap:10px;}
+  .feedback.ok{display:flex;background:var(--mint);} .feedback.no{display:flex;background:#FFD1C7;}
+
+  .ask-teacher-inline{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:var(--cream);
+    border:2.5px dashed var(--ink);border-radius:999px;padding:9px 16px;cursor:pointer;font-weight:600;font-size:.87rem;}
+  .ask-teacher-inline:hover{background:var(--yellow);}
+
+  /* quiz */
+  .quiz-box{background:#FFF0DA;border:3px solid var(--ink);border-radius:20px;padding:22px;display:flex;gap:20px;align-items:center;}
+  .quiz-main{flex:1;}
+  .quiz-sentence{font-family:'Mitr';font-size:1.1rem;margin-bottom:14px;}
+  .quiz-options{display:flex;gap:12px;flex-wrap:wrap;}
+  .quiz-opt{font-family:'Mitr';font-weight:600;border:2.5px solid var(--ink);background:#fff;border-radius:14px;
+    padding:11px 20px;cursor:pointer;font-size:1rem;transition:transform .1s;}
+  .quiz-opt:hover{background:var(--yellow);}
+  .quiz-progress{font-size:.8rem;color:#8a7862;margin-top:10px;}
+  .quiz-next{display:none;margin-top:12px;background:var(--ink);color:#fff;border:none;border-radius:999px;
+    padding:9px 18px;font-family:'Mitr';font-weight:600;cursor:pointer;}
+
+  .loop{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;}
+  .loop-step{flex:1 1 210px;background:var(--card);border:3px solid var(--ink);border-radius:20px;padding:20px;}
+  .loop-step .icon{font-size:1.7rem;margin-bottom:8px;display:block;}
+  .loop-step h3{font-size:1rem;margin-bottom:6px;} .loop-step p{font-size:.84rem;color:#5a4a3a;margin:0;}
+  .loop-arrow{align-self:center;font-size:1.4rem;opacity:.4;}
+
+  .teacher-panel{display:grid;grid-template-columns:.9fr 1.1fr;background:var(--ink);color:var(--cream);
+    border-radius:28px;overflow:hidden;border:3px solid var(--ink);}
+  .teacher-left{padding:34px;display:flex;flex-direction:column;justify-content:center;gap:12px;}
+  .teacher-left h2{color:#fff;font-size:1.8rem;} .teacher-left p{color:#e7d8c8;font-size:.94rem;}
+  .teacher-right{background:#fff;color:var(--ink);padding:20px;display:flex;flex-direction:column;}
+  #chatlog{flex:1;overflow-y:auto;max-height:320px;padding:6px 4px;display:flex;flex-direction:column;gap:10px;}
+  .msg{padding:11px 15px;border-radius:16px;max-width:82%;font-size:.92rem;border:2px solid var(--ink);}
+  .msg.teacher{background:var(--mint);align-self:flex-start;border-bottom-left-radius:4px;}
+  .msg.me{background:var(--yellow);align-self:flex-end;border-bottom-right-radius:4px;}
+  .chat-input-row{display:flex;gap:8px;margin-top:12px;}
+  .chat-input-row input{flex:1;border:2.5px solid var(--ink);border-radius:999px;padding:11px 16px;
+    font-family:'Sarabun';font-size:.95rem;}
+  .chat-input-row button{background:var(--orange);color:#fff;border:none;border-radius:999px;padding:0 20px;
+    font-family:'Mitr';font-weight:600;cursor:pointer;}
+  .quick-asks{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+  .quick-ask{font-size:.78rem;background:var(--cream);border:2px dashed var(--ink);border-radius:999px;
+    padding:6px 12px;cursor:pointer;}
+  .quick-ask:hover{background:var(--yellow);}
+
+  .fab{position:fixed;bottom:22px;right:22px;z-index:60;background:var(--orange);color:#fff;border:3px solid var(--ink);
+    border-radius:999px;padding:10px 20px 10px 10px;font-family:'Mitr';font-weight:600;cursor:pointer;
+    box-shadow:5px 5px 0 var(--ink);display:flex;align-items:center;gap:10px;}
+  .fab:hover{background:var(--orange-dark);}
+
+  .courage-chip{background:var(--lav);color:#fff;border:2.5px solid var(--ink);border-radius:999px;padding:6px 14px;
+    font-family:'Mitr';font-weight:700;font-size:.85rem;display:flex;align-items:center;gap:6px;transition:transform .2s;}
+  .courage-chip.bump{transform:scale(1.18);}
+
+  /* ---------- research alignment ---------- */
+  .research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .research-card{border:3px solid var(--ink);border-radius:var(--radius);padding:22px;box-shadow:6px 6px 0 var(--ink);}
+  .research-card.comm{background:#FFE3D2;} .research-card.att{background:#FFF3C4;} .research-card.conf{background:#E3F7EA;}
+  .research-card h3{font-size:1.08rem;margin-bottom:4px;}
+  .research-card .goal{font-size:.82rem;color:#5a4a3a;margin-bottom:12px;font-style:italic;}
+  .research-card ul{margin:0;padding-left:20px;font-size:.88rem;display:grid;gap:6px;}
+
+  /* ---------- survey ---------- */
+  .survey-box{background:var(--card);border:3px solid var(--ink);border-radius:var(--radius);padding:26px;box-shadow:8px 8px 0 var(--ink);}
+  .survey-item{padding:14px 0;border-bottom:2px dashed #e3d5c2;}
+  .survey-item:last-of-type{border-bottom:none;}
+  .survey-q{font-weight:600;margin-bottom:10px;font-size:.95rem;}
+  .likert{display:flex;gap:8px;flex-wrap:wrap;}
+  .likert button{width:42px;height:42px;border-radius:50%;border:2.5px solid var(--ink);background:#fff;
+    font-family:'Mitr';font-weight:700;cursor:pointer;}
+  .likert button.sel{background:var(--orange);color:#fff;}
+  .likert-labels{display:flex;justify-content:space-between;font-size:.72rem;color:#8a7862;max-width:270px;margin-top:4px;}
+  .survey-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;}
+  .survey-btn{font-family:'Mitr';font-weight:600;border:3px solid var(--ink);border-radius:999px;padding:11px 20px;
+    cursor:pointer;box-shadow:4px 4px 0 var(--ink);background:#fff;}
+  .survey-btn.pre{background:var(--yellow);} .survey-btn.post{background:var(--mint);}
+  .survey-result{margin-top:22px;display:none;}
+  .bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+  .bar-label{width:64px;font-size:.85rem;font-weight:600;flex-shrink:0;}
+  .bar-track{flex:1;background:#f1e7d8;border:2px solid var(--ink);border-radius:999px;height:22px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:999px;transition:width .6s ease;display:flex;align-items:center;justify-content:flex-end;
+    padding-right:8px;font-size:.72rem;font-weight:700;color:#fff;}
+  .bar-fill.pre{background:var(--peel);} .bar-fill.post{background:var(--orange);}
+  .survey-note{font-size:.85rem;margin-top:12px;color:#5a4a3a;}
+
+  /* ---------- roleplay ---------- */
+  .roleplay-panel{background:var(--ink);color:var(--cream);border-radius:28px;overflow:hidden;border:3px solid var(--ink);
+    display:grid;grid-template-columns:.9fr 1.1fr;}
+  .roleplay-left{padding:34px;display:flex;flex-direction:column;justify-content:center;gap:12px;}
+  .roleplay-left h2{color:#fff;font-size:1.7rem;} .roleplay-left p{color:#e7d8c8;font-size:.92rem;}
+  .scenario-chip{display:inline-block;background:var(--mint);color:var(--ink);border:2.5px solid var(--ink);
+    border-radius:999px;padding:6px 14px;font-weight:700;font-size:.8rem;width:fit-content;}
+  .roleplay-right{background:#fff;color:var(--ink);padding:20px;display:flex;flex-direction:column;}
+
+  /* ---------- speak it out: pronunciation practice ---------- */
+  .speak-card{background:var(--card);border:3px solid var(--ink);border-radius:28px;box-shadow:8px 8px 0 var(--ink);padding:26px 28px 30px;}
+  .speak-top{display:flex;gap:18px;align-items:center;margin-bottom:20px;}
+  .speak-top-text{flex:1;}
+  .speak-label{font-size:.82rem;color:#8a7862;font-weight:600;margin-bottom:4px;}
+  .speak-target{font-family:'Mitr';font-size:1.3rem;line-height:1.6;margin-bottom:10px;}
+  .speak-target .word-tag{padding:1px 4px;border-radius:6px;}
+  .speak-target .word-tag.ok{background:var(--mint);}
+  .speak-target .word-tag.no{background:#FFD1C7;text-decoration:underline wavy var(--orange-dark);}
+  .speak-listen-btn{background:var(--cream);border:2px dashed var(--ink);border-radius:999px;padding:8px 16px;
+    font-family:'Mitr';font-weight:600;font-size:.82rem;cursor:pointer;}
+  .speak-listen-btn:hover{background:var(--yellow);}
+
+  .speak-controls{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:14px;}
+  .mic-btn{display:flex;align-items:center;gap:10px;background:var(--orange);color:#fff;border:3px solid var(--ink);
+    border-radius:999px;padding:13px 26px;font-family:'Mitr';font-weight:700;font-size:1rem;cursor:pointer;
+    box-shadow:5px 5px 0 var(--ink);transition:transform .12s,box-shadow .12s;}
+  .mic-btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+  .mic-btn.listening{background:var(--pink);animation:micpulse 1s ease-in-out infinite;}
+  .mic-icon{font-size:1.15rem;}
+  @keyframes micpulse{0%,100%{box-shadow:5px 5px 0 var(--ink),0 0 0 0 rgba(255,111,165,.5);}50%{box-shadow:5px 5px 0 var(--ink),0 0 0 12px rgba(255,111,165,0);}}
+  .speak-skip{background:var(--cream);border:2.5px solid var(--ink);border-radius:999px;padding:10px 20px;
+    font-family:'Mitr';font-weight:600;cursor:pointer;font-size:.9rem;}
+  .speak-skip:hover{background:var(--yellow);}
+
+  .speak-transcript{background:#FFF0DA;border:2px dashed var(--ink);border-radius:14px;padding:10px 14px;
+    font-size:.88rem;margin-bottom:12px;}
+  .speak-transcript b{font-family:'Mitr';}
+
+  .speak-feedback{border:2.5px solid var(--ink);border-radius:16px;padding:14px 18px;font-weight:700;margin-bottom:16px;font-family:'Mitr';}
+  .speak-feedback.perfect{background:var(--mint);}
+  .speak-feedback.high{background:var(--yellow);}
+  .speak-feedback.mid{background:var(--peel);}
+  .speak-feedback.low{background:#EFEBFF;}
+  .speak-feedback .fb-detail{font-weight:400;font-size:.85rem;margin-top:6px;color:#5a4a3a;font-family:'Sarabun';}
+
+  .speak-fallback{margin-bottom:8px;}
+  .speak-fallback-toggle{background:none;border:none;color:#8a7862;text-decoration:underline;cursor:pointer;font-size:.8rem;padding:0;}
+  .speak-fallback-row{margin-top:8px;display:flex;gap:8px;}
+  .speak-fallback-row input{flex:1;border:2.5px solid var(--ink);border-radius:999px;padding:9px 14px;font-family:'Sarabun';font-size:.9rem;}
+
+  footer{text-align:center;padding:32px 20px 44px;font-size:.85rem;color:#8a7862;border-top:3px solid var(--ink);margin-top:16px;}
+
+  /* ---------- device mode switch (preview mobile/desktop regardless of real window size) ---------- */
+  #appFrame{container-type:inline-size;container-name:appc;transition:max-width .25s ease,border-color .25s ease;}
+  body.mode-mobile{overflow-x:hidden;}
+  body.mode-mobile #appFrame{max-width:428px;margin:0 auto;border-left:4px solid var(--ink);border-right:4px solid var(--ink);
+    box-shadow:0 0 40px rgba(0,0,0,.08);}
+  body.mode-desktop #appFrame{min-width:1180px;}
+  body.mode-desktop{overflow-x:auto;}
+  .mode-switch{display:flex;background:var(--cream);border:2.5px solid var(--ink);border-radius:999px;padding:3px;gap:2px;}
+  .mode-btn{border:none;background:transparent;border-radius:999px;padding:6px 12px;cursor:pointer;font-size:.95rem;
+    display:flex;align-items:center;gap:5px;font-family:'Mitr';font-weight:600;font-size:.8rem;color:var(--ink);opacity:.55;}
+  .mode-btn.active{background:var(--ink);color:var(--cream);opacity:1;}
+
+  @container appc (max-width:880px){
+    .hero{grid-template-columns:1fr;padding:32px 18px 24px;}
+    .pillars{grid-template-columns:1fr;}
+    .pattern-cards{grid-template-columns:1fr;}
+    .teacher-panel{grid-template-columns:1fr;}
+    .roleplay-panel{grid-template-columns:1fr;}
+    .research-grid{grid-template-columns:1fr;}
+    .nav-links a{display:none;}
+    .quiz-box{flex-direction:column;}
+    .section{padding:40px 18px;}
+
+    .nav{padding:10px 16px;flex-wrap:wrap;row-gap:10px;}
+    .nav-links{flex-wrap:wrap;gap:8px;row-gap:8px;}
+    .score-chip,.courage-chip{font-size:.72rem;padding:5px 10px;}
+    .mode-switch{padding:2px;}
+    .mode-btn{padding:6px 9px;font-size:1rem;}
+    .mode-label{display:none;}
+    .nav-cta{flex:1 1 100%;text-align:center;}
+  }
+</style>
+</head>
+<body class="mode-desktop">
+<div class="grain"></div>
+
+<div id="appFrame">
+<nav class="nav">
+  <div class="logo">
+    <div class="mascot sm bob" id="navMascot"><div class="eyes"><span></span><span></span></div><div class="mouth"></div></div>
+    PakDee<span style="color:var(--orange)">English</span>
+  </div>
+  <div class="nav-links">
+    <a href="#how">แนวคิด</a>
+    <a href="#research">งานวิจัย</a>
+    <a href="#unit">บทเรียน</a>
+    <a href="#roleplay">โรลเพลย์</a>
+    <a href="#speaking">พูดโต้ตอบ</a>
+    <a href="#teacher">ครูส้ม</a>
+    <div class="score-chip" id="scoreChip">🍊 <span id="scoreVal">0</span> แต้มปากดี</div>
+    <div class="courage-chip" id="courageChip">🎤 <span id="courageVal">0</span> แต้มกล้าพูด</div>
+    <div class="mode-switch">
+      <button class="mode-btn" id="modeBtnMobile" onclick="setDeviceMode('mobile')">📱<span class="mode-label"> มือถือ</span></button>
+      <button class="mode-btn" id="modeBtnDesktop" onclick="setDeviceMode('desktop')">💻<span class="mode-label"> เดสก์ท็อป</span></button>
+    </div>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('unit').scrollIntoView()">เริ่มเรียนเลย</button>
+</nav>
+
+<header class="hero">
+  <div>
+    <span class="eyebrow-chip">✨ พูดฉอด สื่อสารได้จริง</span>
+    <h1>เรียนอิงลิชแบบ<br><span class="pop">ปากดี</span> กับครูส้ม</h1>
+    <p>แพลตฟอร์มเรียนภาษาอังกฤษเพื่อการสื่อสาร (CLT) ผสมกับการเรียนรู้ผ่าน<b>รูปแบบประโยค</b> ทุกอย่างคลิกได้ ลากได้ ตอบโต้ได้จริง มีครูส้ม (AI) คอยคุยด้วยและให้ฟีดแบ็กตลอดทาง</p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary" onclick="document.getElementById('unit').scrollIntoView()">ลองบทเรียนแรก</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('teacher').scrollIntoView()">คุยกับครูส้ม</button>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="mascot xl bob" id="heroMascot"><div class="eyes"><span></span><span></span></div><div class="mouth"></div></div>
+    <div class="hero-bubble">"There isn't any ham 😭"<small>ตอนเปิดตู้เย็นแล้วเจอความว่างเปล่า</small></div>
+    <div class="hero-bubble" style="transform:rotate(2deg)">"Are there any fries left?!"<small>ประโยคฮิตในกลุ่มเพื่อน — คลิกทุกอย่างข้างล่างได้เลย 👇</small></div>
+  </div>
+</header>
+
+<section class="section" id="how">
+  <div class="section-head">
+    <h2>แนวคิดเบื้องหลัง (ที่เราจะไม่บังคับให้ท่อง)</h2>
+    <p>ยึดหลัก Communicative Language Teaching (CLT) + Sentence Pattern-Based Learning เอาแพทเทิร์นประโยคจริงมาใช้คุยได้เลย</p>
+  </div>
+  <div class="pillars">
+    <div class="pillar"><div class="num">1</div><h3>Learning by Doing</h3><p>คลิก ลาก เลือก ประกอบประโยคเอง ไม่ใช่แค่อ่าน</p></div>
+    <div class="pillar"><div class="num">2</div><h3>Authentic Learning</h3><p>สถานการณ์จริงใกล้ตัว เช่น ของกินหมดตู้เย็น</p></div>
+    <div class="pillar"><div class="num">3</div><h3>Feedback</h3><p>ตอบผิดไม่ตาย ครูส้มอธิบายและยกตัวอย่างให้ทันที</p></div>
+    <div class="pillar"><div class="num">4</div><h3>พัฒนาต่อเนื่อง</h3><p>สะสมแต้มปากดี เก็บแพทเทิร์นไปใช้จริงเรื่อยๆ</p></div>
+  </div>
+</section>
+
+<section class="section" id="research">
+  <div class="section-head">
+    <h2>ออกแบบให้ตอบโจทย์งานวิจัย</h2>
+    <p>ทุกกิจกรรมในเว็บนี้ถูกออกแบบให้เชื่อมกับ 3 ตัวแปรที่งานวิจัยต้องการพัฒนา ไม่ใช่แค่ความรู้ไวยากรณ์</p>
+  </div>
+  <div class="research-grid">
+    <div class="research-card comm">
+      <h3>🗣️ สมรรถนะการสื่อสาร</h3>
+      <div class="goal">Communicative Competence</div>
+      <ul>
+        <li>ประกอบประโยคเองจากแพทเทิร์นจริง (Sentence Builder)</li>
+        <li>ฝึกสนทนาโรลเพลย์กับป้าส้มในสถานการณ์จริง</li>
+        <li>ใช้คำศัพท์-แพทเทิร์นในบริบทของกินจริงในชีวิตประจำวัน</li>
+      </ul>
+    </div>
+    <div class="research-card att">
+      <h3>😄 เจตคติต่อภาษาอังกฤษ</h3>
+      <div class="goal">Attitude</div>
+      <ul>
+        <li>เนื้อหาตลก ทันเทรนด์ มาสคอตครูส้มร่าเริง</li>
+        <li>เกมและแต้มสะสม ทำให้การเรียนรู้สึกเหมือนเล่น</li>
+        <li>แบบประเมินเจตคติก่อน-หลังเรียน วัดความรู้สึกได้จริง</li>
+      </ul>
+    </div>
+    <div class="research-card conf">
+      <h3>💪 ความมั่นใจในการใช้ภาษา</h3>
+      <div class="goal">Confidence</div>
+      <ul>
+        <li>แต้ม "กล้าพูด" ให้ทุกครั้งที่ลอง ไม่ตัดสินที่ความถูกผิด</li>
+        <li>ฟีดแบ็กเชิงบวกจากครูส้มทุกครั้ง ไม่มีคำตำหนิ</li>
+        <li>พื้นที่ฝึกซ้ำได้ไม่จำกัด ไม่มีใครมาว่าเวลาพูดผิด</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="unit">
+  <div class="section-head">
+    <h2>ตัวอย่างบทเรียน</h2>
+    <p>คลิกคำศัพท์เพื่อพลิกดูคำแปล ลองประกอบประโยค แล้วลองเล่นเกมทายแพทเทิร์นด้านล่าง</p>
+  </div>
+
+  <div class="unit-wrap">
+    <div class="unit-head">
+      <div class="unit-badge"><span>UNIT</span><strong>1</strong></div>
+      <div>
+        <h2>Our Favorite Dishes</h2>
+        <div class="sub">ของกินโปรด (ที่มักจะหมดตู้เย็นตอนหิวเที่ยงคืน)</div>
+      </div>
+    </div>
+
+    <div class="unit-body">
+      <div>
+        <div class="tag-row"><span class="tag">คำศัพท์ (Vocabulary)</span><span class="hint">คลิกคำเพื่อพลิกดูคำแปล</span></div>
+        <div class="word-grid" id="wordGrid"></div>
+      </div>
+
+      <div>
+        <div class="tag-row"><span class="tag gram">แพทเทิร์นประโยค (Grammar)</span></div>
+        <div class="pattern-cards">
+          <div class="pattern-card"><div class="p1">There is / isn't + คำนามเอกพจน์</div>
+            <div class="p2">"There is some ham." / "There isn't any ham." 😭</div></div>
+          <div class="pattern-card"><div class="p1">Are there any + คำนามพหูพจน์?</div>
+            <div class="p2">"Are there any french fries?" — ถามก่อนจะผิดหวัง</div></div>
+          <div class="pattern-card"><div class="p1">How many + พหูพจน์ + are there?</div>
+            <div class="p2">"How many pies are there?" — นับก่อนแบ่งเพื่อน</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="tag-row"><span class="tag play">ลองเลย (Learning by Doing)</span></div>
+        <div class="builder">
+          <div class="builder-row">
+            <span>There</span>
+            <select id="verbSel"><option value="is">is</option><option value="isn't">isn't</option><option value="are">are</option><option value="aren't">aren't</option></select>
+            <select id="qtySel"><option value="some">some</option><option value="any">any</option><option value="a lot of">a lot of</option><option value="">(ไม่ใส่)</option></select>
+            <select id="nounSel"><option value="ham">ham</option><option value="french fries">french fries</option><option value="pies">pies</option><option value="honey">honey</option><option value="sausages">sausages</option></select>
+            <span>in the fridge.</span>
+          </div>
+          <div class="builder-output" id="output">There is some ham in the fridge.</div>
+          <button class="check-btn" onclick="checkSentence()">เช็กประโยคนี้</button>
+          <div class="feedback" id="fb"></div>
+          <div><button class="ask-teacher-inline" onclick="askAboutUnit()">🙋‍♀️ งงตรง Grammar ยูนิตนี้ ถามครูส้มเลย</button></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="tag-row"><span class="tag" style="background:var(--pink);color:#fff">มินิเกม ทายแพทเทิร์น</span></div>
+        <div class="quiz-box">
+          <div class="mascot lg" id="quizMascot"><div class="eyes"><span></span><span></span></div><div class="mouth"></div></div>
+          <div class="quiz-main">
+            <div class="quiz-sentence" id="quizSentence"></div>
+            <div class="quiz-options" id="quizOptions"></div>
+            <div class="quiz-progress" id="quizProgress"></div>
+            <button class="quiz-next" id="quizNext" onclick="nextQuiz()">ข้อต่อไป →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="roleplay">
+  <div class="section-head">
+    <h2>ฝึกสนทนาโรลเพลย์ — ของจริง ไม่ใช่แบบฝึกหัด</h2>
+    <p>เป้าหมายไม่ใช่ตอบให้ถูกไวยากรณ์ 100% แต่คือ "กล้าพิมพ์คุยต่อเนื่อง" — ทุกข้อความที่ส่งจะได้แต้มกล้าพูดทันที ไม่ว่าจะถูกหรือผิด</p>
+  </div>
+  <div class="roleplay-panel">
+    <div class="roleplay-left">
+      <span class="scenario-chip">📍 สถานการณ์: ร้านของกินป้าส้ม</span>
+      <h2>คุยกับป้าส้ม</h2>
+      <p>สวมบทเป็นลูกค้า ลองถามป้าส้มว่ามีของกินอะไรบ้างโดยใช้แพทเทิร์น "Is/Are there any...?" หรือ "How many...are there?" ป้าส้มจะคุยต่อเนื่องเหมือนสถานการณ์จริง ไม่ตัดจบเป็นข้อๆ</p>
+      <p style="font-size:.8rem;opacity:.7">* เน้นความคล่องและความกล้าพูดก่อน ความแม่นยำค่อยตามมาทีหลัง</p>
+    </div>
+    <div class="roleplay-right">
+      <div id="rplog">
+        <div class="msg teacher">สวัสดีจ้ะ ป้าส้มเองงง 🍊 วันนี้ที่ร้านมี bacon, ham, honey, pies เยอะเลย อยากถามป้าไรมั้ยจ๊ะ ลองถามดูสิ~</div>
+      </div>
+      <div class="chat-input-row">
+        <input id="rpInput" type="text" placeholder="ลองพิมพ์ถามป้าส้มเลย เช่น Are there any pies?">
+        <button onclick="sendRoleplay()">ส่ง</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="speaking">
+  <div class="section-head">
+    <h2>พูดตามให้ฟังหน่อย! 🎤</h2>
+    <p>กดไมค์แล้วลองพูดประโยคด้านล่างเป็นภาษาอังกฤษ ครูส้มจะฟังแล้วบอกทันทีว่าเป๊ะไม่เป๊ะตรงไหน — พูดผิดก็ได้แต้มกล้าพูดอยู่ดี ยิ่งพูดถูกยิ่งได้แต้มพุ่ง!</p>
+  </div>
+  <div class="speak-card">
+    <div class="speak-top">
+      <div class="mascot lg bob" id="speakMascot"><div class="eyes"><span></span><span></span></div><div class="mouth"></div></div>
+      <div class="speak-top-text">
+        <div class="speak-label">ลองพูดประโยคนี้ดัง ๆ</div>
+        <div class="speak-target" id="speakTarget"></div>
+        <button class="speak-listen-btn" onclick="speakExample()">🔊 ฟังตัวอย่างครูส้มพูด</button>
+      </div>
+    </div>
+
+    <div class="speak-controls">
+      <button class="mic-btn" id="micBtn" onclick="toggleListen()">
+        <span class="mic-icon">🎤</span><span id="micLabel">กดพูดเลย</span>
+      </button>
+      <button class="speak-skip" onclick="nextSpeak()">ข้อต่อไป →</button>
+    </div>
+
+    <div class="speak-transcript" id="speakTranscript" style="display:none"></div>
+    <div class="speak-feedback" id="speakFeedback" style="display:none"></div>
+
+    <div class="speak-fallback">
+      <button class="speak-fallback-toggle" onclick="toggleTypeFallback()">⌨️ ไมค์ใช้ไม่ได้เหรอ? พิมพ์สิ่งที่พูดแทนได้นะ</button>
+      <div class="speak-fallback-row" id="speakFallbackRow" style="display:none">
+        <input type="text" id="speakTypeInput" placeholder="พิมพ์สิ่งที่พูด แล้วกด Enter">
+      </div>
+    </div>
+
+    <div class="speak-stats">
+      <span class="courage-chip" style="background:var(--mint)">🌟 <span id="speakPerfectVal">0</span> ประโยคเป๊ะ 10/10</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="survey">
+  <div class="section-head">
+    <h2>วัดเจตคติและความมั่นใจของคุณ</h2>
+    <p>ทำแบบประเมินสั้นๆ ก่อนเริ่มเรียน แล้วกลับมาทำอีกครั้งหลังลองกิจกรรมด้านบน เพื่อดูว่าเจตคติและความมั่นใจเปลี่ยนไปแค่ไหน</p>
+  </div>
+  <div class="survey-box">
+    <div id="surveyItems"></div>
+    <div class="survey-actions">
+      <button class="survey-btn pre" onclick="saveSurvey('pre')">📝 บันทึกผลก่อนเรียน</button>
+      <button class="survey-btn post" onclick="saveSurvey('post')">📝 บันทึกผลหลังเรียน</button>
+    </div>
+    <div class="survey-result" id="surveyResult">
+      <h3 style="margin-bottom:14px;">ผลเปรียบเทียบ (คะแนนเฉลี่ยเต็ม 5)</h3>
+      <div class="bar-row"><div class="bar-label">ก่อนเรียน</div><div class="bar-track"><div class="bar-fill pre" id="barPre"></div></div></div>
+      <div class="bar-row"><div class="bar-label">หลังเรียน</div><div class="bar-track"><div class="bar-fill post" id="barPost"></div></div></div>
+      <div class="survey-note" id="surveyNote"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><h2>วงจรการเรียนในทุกยูนิต</h2><p>สลับกันไปเรื่อยๆ จนกว่าแพทเทิร์นจะติดปาก</p></div>
+  <div class="loop">
+    <div class="loop-step"><span class="icon">👀</span><h3>ดูสถานการณ์จริง</h3><p>มีม / คลิปสั้น / บทสนทนาที่เจอได้ในชีวิตจริง</p></div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step"><span class="icon">🧩</span><h3>ประกอบประโยคเอง</h3><p>คลิก ลาก เลือก สร้างประโยคของตัวเอง</p></div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step"><span class="icon">💬</span><h3>รับฟีดแบ็กทันที</h3><p>ผิดก็รู้ทันที พร้อมตัวอย่างที่ถูกให้ดู</p></div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-step"><span class="icon">🍊</span><h3>คุยกับครูส้ม</h3><p>ไม่เข้าใจตรงไหน ถามได้ตลอด ไม่มีหมดคาบ</p></div>
+  </div>
+</section>
+
+<section class="section" id="teacher">
+  <div class="section-head"><h2>เรียนควบคู่ครูส้ม ตลอดเวลา</h2>
+    <p>ไม่ใช่แค่แอปทำแบบฝึกหัด — มีครูส้ม (AI) คอยอธิบาย แซว และแก้ไขให้เหมือนนั่งเรียนคู่กันจริงๆ</p></div>
+  <div class="teacher-panel">
+    <div class="teacher-left">
+      <div class="mascot lg bob" id="teacherPanelMascot"><div class="eyes"><span></span><span></span></div><div class="mouth"></div></div>
+      <h2>ครูส้ม</h2>
+      <p>ถามอะไรก็ได้เกี่ยวกับยูนิตนี้ ไม่เก็ตตรงไหน พิมพ์มาเลย ครูส้มจะอธิบายง่ายๆ พร้อมมุกส้มๆ ให้จำได้</p>
+      <p style="font-size:.8rem;opacity:.7">* ในตัวอย่างนี้ครูส้มขับเคลื่อนด้วย Claude ผ่าน Anthropic API</p>
+    </div>
+    <div class="teacher-right">
+      <div class="quick-asks">
+        <div class="quick-ask" onclick="quickAsk('isn\'t กับ aren\'t ต่างกันยังไง')">isn't vs aren't?</div>
+        <div class="quick-ask" onclick="quickAsk('some กับ any ใช้ต่างกันยังไง')">some vs any?</div>
+        <div class="quick-ask" onclick="quickAsk('ขอประโยคตลกๆ แต่งเรื่องของกินหมดตู้เย็นหน่อย')">แต่งมุกของกินหมด</div>
+      </div>
+      <div id="chatlog">
+        <div class="msg teacher">หวัดดีค้าบ ครูส้มเองงง 🍊 วันนี้เรียน Unit 1 เรื่องของกินในตู้เย็นกันเนอะ มีตรงไหนงงมั้ย หรือจะลองแต่งประโยคมาให้ครูเช็กก็ได้นะ</div>
+      </div>
+      <div class="chat-input-row">
+        <input id="chatInput" type="text" placeholder="พิมพ์คำถามถึงครูส้ม...">
+        <button onclick="sendChat()">ส่ง</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>PakDee English — ต้นแบบเว็บแอปเรียนภาษาอังกฤษเชิงสื่อสาร (CLT + Sentence Pattern-Based Learning) นำโดยครูส้ม 🍊 · ทำเป็นตัวอย่างเพื่อสาธิตแนวคิด</footer>
+</div><!-- /#appFrame -->
+
+<button class="fab" onclick="document.getElementById('teacher').scrollIntoView({behavior:'smooth'})">
+  <div class="mascot sm" id="fabMascot"><div class="eyes"><span></span><span></span></div><div class="mouth"></div></div>
+  ถามครูส้ม
+</button>
+
+<script>
+/* ---------- device mode switch: preview mobile/desktop layout on demand ---------- */
+function setDeviceMode(mode){
+  document.body.classList.remove('mode-mobile','mode-desktop');
+  document.body.classList.add('mode-' + mode);
+  document.getElementById('modeBtnMobile').classList.toggle('active', mode === 'mobile');
+  document.getElementById('modeBtnDesktop').classList.toggle('active', mode === 'desktop');
+}
+/* start in whichever mode roughly matches the real device, then it's fully manual after that */
+setDeviceMode(window.matchMedia('(max-width:880px)').matches ? 'mobile' : 'desktop');
+
+/* ---------- score ---------- */
+let score = 0;
+function addScore(n){
+  score += n;
+  document.getElementById('scoreVal').textContent = score;
+  const chip = document.getElementById('scoreChip');
+  chip.classList.add('bump');
+  setTimeout(()=>chip.classList.remove('bump'), 220);
+}
+/* courage score: rewards the ATTEMPT (speaking up / trying), not accuracy —
+   this is the confidence-building mechanic: every attempt counts. */
+let courage = 0;
+function addCourage(n){
+  courage += n;
+  document.getElementById('courageVal').textContent = courage;
+  const chip = document.getElementById('courageChip');
+  chip.classList.add('bump');
+  setTimeout(()=>chip.classList.remove('bump'), 220);
+}
+
+/* ---------- mascot mood ---------- */
+const mascotIds = ['navMascot','heroMascot','quizMascot','teacherPanelMascot','fabMascot','speakMascot'];
+function setMood(mood, ids){
+  (ids || mascotIds).forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.classList.remove('happy','sad','think');
+    if(mood) el.classList.add(mood);
+  });
+}
+
+/* ---------- vocab flip cards ---------- */
+const vocab = [
+  ["bacon","เบคอน"],["butter","เนย"],["cantaloupe","แคนตาลูป"],["chicken","เนื้อไก่"],["chili","พริก"],
+  ["cookie","คุกกี้"],["dried shrimp","กุ้งแห้ง"],["french fries","เฟรนช์ฟราย"],["ham","แฮม"],["honey","น้ำผึ้ง"],
+  ["juice","น้ำผลไม้"],["lemon","มะนาวเหลือง"],["lemonade","น้ำมะนาว"],["long bean","ถั่วฝักยาว"],["pancake","แพนเค้ก"],
+  ["papaya","มะละกอ"],["pie","พาย"],["pork","เนื้อหมู"],["sausage","ไส้กรอก"],["tomato","มะเขือเทศ"],["yogurt","โยเกิร์ต"]
+];
+const wordGrid = document.getElementById('wordGrid');
+const flippedOnce = new Set();
+vocab.forEach(([en, th], i)=>{
+  const chip = document.createElement('div');
+  chip.className = 'word-chip';
+  chip.innerHTML = `<div class="word-inner">
+      <div class="word-face front">${en}</div>
+      <div class="word-face back">${th}</div>
+    </div>`;
+  chip.addEventListener('click', ()=>{
+    chip.classList.toggle('flipped');
+    if(!flippedOnce.has(i)){ flippedOnce.add(i); addScore(1); setMood('happy'); setTimeout(()=>setMood(null),700); }
+  });
+  wordGrid.appendChild(chip);
+});
+
+/* ---------- sentence builder ---------- */
+function updateOutput(){
+  const v = document.getElementById('verbSel').value;
+  const q = document.getElementById('qtySel').value;
+  const n = document.getElementById('nounSel').value;
+  const parts = ['There', v, q, n, 'in the fridge.'].filter(x => x !== '');
+  document.getElementById('output').textContent = parts.join(' ').replace(/\s+/g,' ');
+}
+['verbSel','qtySel','nounSel'].forEach(id=>{ document.getElementById(id).addEventListener('change', updateOutput); });
+
+function checkSentence(){
+  const v = document.getElementById('verbSel').value;
+  const n = document.getElementById('nounSel').value;
+  const pluralNouns = ['french fries','pies','sausages'];
+  const isPlural = pluralNouns.includes(n);
+  const verbIsPlural = (v === 'are' || v === "aren't");
+  const fb = document.getElementById('fb');
+  fb.className = 'feedback';
+  addCourage(2); /* every attempt to build a sentence counts, right or wrong */
+  if(isPlural === verbIsPlural){
+    fb.classList.add('ok');
+    fb.textContent = '✅ เป๊ะ! เข้ากันดี — จำแพทเทิร์นนี้ไว้ใช้ตอนของกินหมดตู้เย็นจริงๆ ได้เลย';
+    addScore(5); setMood('happy'); setTimeout(()=>setMood(null), 900);
+  } else {
+    fb.classList.add('no');
+    fb.textContent = isPlural
+      ? '🤔 ' + n + ' เป็นพหูพจน์ ต้องใช้ "are/aren\'t" นะ ลองสลับดูอีกที'
+      : '🤔 ' + n + ' เป็นเอกพจน์/นับไม่ได้ ต้องใช้ "is/isn\'t" นะ ลองสลับดูอีกที';
+    setMood('sad'); document.getElementById('output').classList.add('shake');
+    setTimeout(()=>{ setMood(null); document.getElementById('output').classList.remove('shake'); }, 700);
+  }
+}
+updateOutput();
+
+/* ---------- mini quiz ---------- */
+const quizQs = [
+  {s:"There ___ some honey in the jar.", opts:["is","are"], a:"is"},
+  {s:"___ there any pies left?", opts:["Is","Are"], a:"Are"},
+  {s:"There ___ a lot of sausages on the grill.", opts:["is","are"], a:"are"},
+  {s:"How many tomatoes ___ there?", opts:["is","are"], a:"are"},
+  {s:"There ___ any dried shrimp in this dish.", opts:["isn't","aren't"], a:"isn't"}
+];
+let quizIdx = 0;
+function renderQuiz(){
+  const q = quizQs[quizIdx];
+  document.getElementById('quizSentence').textContent = q.s;
+  const optWrap = document.getElementById('quizOptions');
+  optWrap.innerHTML = '';
+  document.getElementById('quizNext').style.display = 'none';
+  document.getElementById('quizProgress').textContent = `ข้อ ${quizIdx+1} / ${quizQs.length}`;
+  setMood(null, ['quizMascot']);
+  q.opts.forEach(opt=>{
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+    btn.onclick = ()=> answerQuiz(opt, q.a, btn, optWrap);
+    optWrap.appendChild(btn);
+  });
+}
+function answerQuiz(picked, correct, btn, wrap){
+  [...wrap.children].forEach(b => b.disabled = true);
+  addCourage(2); /* attempted the question — courage counts before accuracy does */
+  if(picked === correct){
+    btn.style.background = 'var(--mint)';
+    setMood('happy', ['quizMascot']);
+    addScore(5);
+  } else {
+    btn.style.background = '#FFD1C7';
+    setMood('sad', ['quizMascot']);
+    [...wrap.children].forEach(b => { if(b.textContent === correct) b.style.background = 'var(--mint)'; });
+  }
+  document.getElementById('quizNext').style.display = 'inline-block';
+}
+function nextQuiz(){
+  quizIdx = (quizIdx + 1) % quizQs.length;
+  renderQuiz();
+}
+renderQuiz();
+
+/* ---------- teacher chat ---------- */
+function askAboutUnit(){
+  document.getElementById('teacher').scrollIntoView({behavior:'smooth'});
+  document.getElementById('chatInput').value = "งงตรง there is/are กับ isn't/aren't ของ Unit 1 อธิบายง่ายๆ พร้อมยกตัวอย่างตลกๆ หน่อย";
+  document.getElementById('chatInput').focus();
+}
+function quickAsk(text){
+  document.getElementById('chatInput').value = text;
+  sendChat();
+}
+function addMsg(text, who){
+  const log = document.getElementById('chatlog');
+  const div = document.createElement('div');
+  div.className = 'msg ' + who + ' pop-in';
+  div.textContent = text;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+  return div;
+}
+async function sendChat(){
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+  addMsg(text, 'me');
+  addCourage(3); /* speaking up to ask a question is itself a communication act */
+  input.value = '';
+  setMood('think', ['teacherPanelMascot']);
+  const typingMsg = addMsg('ครูส้มกำลังพิมพ์...', 'teacher');
+  typingMsg.style.opacity = '.6'; typingMsg.style.fontStyle='italic';
+  try{
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 400,
+        messages: [{
+          role: "user",
+          content: `คุณคือ "ครูส้ม" ครูสอนภาษาอังกฤษออนไลน์ในเว็บแอป PakDee English บุคลิกร่าเริง ตลก ทันเทรนด์ ชอบเล่นมุกเกี่ยวกับส้ม/ผลไม้เป็นครั้งคราว แต่สอนแม่นและชัดเจน กำลังสอน Unit 1 "Our Favorite Dishes" เรื่องแพทเทิร์น "There is/isn't" (เอกพจน์/นับไม่ได้) และ "There are/aren't" (พหูพจน์), "Are there any...?", "How many...are there?" เกี่ยวกับคำศัพท์อาหาร เช่น bacon, ham, french fries, pies, honey, sausages ฯลฯ ตอบเป็นภาษาไทยปนอังกฤษนิดหน่อยแบบเป็นกันเอง สั้น กระชับ มีตัวอย่างประโยคเสมอ ไม่เกิน 5-6 บรรทัด นี่คือคำถามของนักเรียน: "${text}"`
+        }]
+      })
+    });
+    const data = await response.json();
+    typingMsg.remove();
+    const reply = data.content.map(b => b.text || '').join('\n').trim() || 'ขอโทษที ครูส้มงงไปหน่อย ลองถามใหม่อีกทีนะ 🙏';
+    addMsg(reply, 'teacher');
+    setMood('happy', ['teacherPanelMascot']); setTimeout(()=>setMood(null,['teacherPanelMascot']), 900);
+  } catch(err){
+    typingMsg.remove();
+    addMsg('เอ๊ะ เน็ตครูส้มสะดุดแป๊บ ลองพิมพ์ถามอีกทีนะ 🙏', 'teacher');
+    setMood(null, ['teacherPanelMascot']);
+  }
+}
+document.getElementById('chatInput').addEventListener('keydown', function(e){ if(e.key === 'Enter') sendChat(); });
+
+/* ---------- roleplay: ป้าส้ม (authentic, sustained conversation practice) ---------- */
+function addRpMsg(text, who){
+  const log = document.getElementById('rplog');
+  const div = document.createElement('div');
+  div.className = 'msg ' + who + ' pop-in';
+  div.textContent = text;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+  return div;
+}
+let rpHistory = [];
+async function sendRoleplay(){
+  const input = document.getElementById('rpInput');
+  const text = input.value.trim();
+  if(!text) return;
+  addRpMsg(text, 'me');
+  addCourage(4); /* initiating a turn in an authentic conversation — the core target behavior */
+  rpHistory.push({role:'user', content:text});
+  input.value = '';
+  const typingMsg = addRpMsg('ป้าส้มกำลังพิมพ์...', 'teacher');
+  typingMsg.style.opacity = '.6'; typingMsg.style.fontStyle = 'italic';
+  try{
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 300,
+        messages: [{
+          role: "user",
+          content: `คุณคือ "ป้าส้ม" แม่ค้าขายของกินใจดี อารมณ์ดี ขี้เล่น ในสถานการณ์โรลเพลย์ฝึกภาษาอังกฤษของแอป PakDee English ลูกค้า (นักเรียน) กำลังฝึกใช้แพทเทิร์น "There is/are", "Is/Are there any...?", "How many...are there?" เกี่ยวกับของกินในร้าน (bacon, ham, honey, pies, french fries, sausages, tomato ฯลฯ) กติกาสำคัญ: 1) ตอบเป็นภาษาอังกฤษง่ายๆ สั้นๆ 1-2 ประโยค ในบทป้าส้ม ต่อด้วยคำถามชวนคุยต่อเสมอเพื่อให้บทสนทนาต่อเนื่อง ไม่จบห้วนๆ 2) ถ้าลูกค้าพูดผิดไวยากรณ์เล็กน้อย อย่าแก้แบบเป็นทางการหรือดุ ให้ตอบรับก่อนอย่างเป็นธรรมชาติแล้วสอดแทรกรูปประโยคที่ถูกไว้ในคำตอบของป้าส้มเองแบบเนียนๆ (ไม่ต้องชี้ว่า "ผิดตรงนี้") 3) ให้กำลังใจเสมอ ไม่มีคำตำหนิ เน้นให้ลูกค้ากล้าพิมพ์คุยต่อ 4) อาจแทรกวงเล็บคำแปลไทยสั้นๆ ท้ายประโยคได้ถ้าจำเป็น ประวัติบทสนทนาก่อนหน้า: ${JSON.stringify(rpHistory.slice(-6))} ข้อความล่าสุดจากลูกค้า: "${text}"`
+        }]
+      })
+    });
+    const data = await response.json();
+    typingMsg.remove();
+    const reply = data.content.map(b => b.text || '').join('\n').trim() || "Oops, ป้าส้มลืมพูดแป๊บ ลองพิมพ์อีกทีนะจ๊ะ";
+    addRpMsg(reply, 'teacher');
+    rpHistory.push({role:'assistant', content:reply});
+  } catch(err){
+    typingMsg.remove();
+    addRpMsg("เอ๊ะ ร้านป้าส้มเน็ตสะดุดแป๊บ ลองพิมพ์ถามอีกทีนะจ๊ะ 🙏", 'teacher');
+  }
+}
+document.getElementById('rpInput').addEventListener('keydown', function(e){ if(e.key === 'Enter') sendRoleplay(); });
+
+/* ---------- speak it out: pronunciation practice with hype feedback ----------
+   Uses the Web Speech API (SpeechRecognition) so kids can talk back instead of
+   only typing. Scoring rewards the attempt first (courage points always given),
+   then layers on louder & louder praise the closer the sentence is to "เป๊ะ". */
+const speakQs = [
+  "There is some ham in the fridge.",
+  "There isn't any honey left.",
+  "Are there any french fries?",
+  "There are a lot of sausages on the grill.",
+  "How many pies are there?",
+  "There aren't any dried shrimp in this dish.",
+  "Is there any butter in the kitchen?",
+  "There are some cookies in the jar."
+];
+let speakIdx = 0;
+let speakPerfectCount = 0;
+let recognizing = false;
+let recognition = null;
+
+function currentSpeakSentence(){ return speakQs[speakIdx]; }
+
+function renderSpeakTarget(){
+  document.getElementById('speakTarget').textContent = currentSpeakSentence();
+  document.getElementById('speakTranscript').style.display = 'none';
+  document.getElementById('speakFeedback').style.display = 'none';
+  document.getElementById('micLabel').textContent = 'กดพูดเลย';
+}
+renderSpeakTarget();
+
+function nextSpeak(){
+  let next = speakIdx;
+  while(next === speakIdx && speakQs.length > 1){ next = Math.floor(Math.random() * speakQs.length); }
+  speakIdx = next;
+  renderSpeakTarget();
+  setMood(null, ['speakMascot']);
+}
+
+function speakExample(){
+  if(!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(currentSpeakSentence());
+  u.lang = 'en-US'; u.rate = 0.92;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+function normWords(s){
+  return s.toLowerCase().replace(/[.,!?]/g, '').trim().split(/\s+/).filter(Boolean);
+}
+/* word-level LCS diff so word order hiccups don't tank the score unfairly,
+   and so we can point at exactly which words landed vs. which didn't */
+function lcsMatch(a, b){
+  const n = a.length, m = b.length;
+  const dp = Array.from({length:n+1}, () => new Array(m+1).fill(0));
+  for(let i=1;i<=n;i++){
+    for(let j=1;j<=m;j++){
+      dp[i][j] = a[i-1]===b[j-1] ? dp[i-1][j-1]+1 : Math.max(dp[i-1][j], dp[i][j-1]);
+    }
+  }
+  const matched = new Array(n).fill(false);
+  let i=n, j=m;
+  while(i>0 && j>0){
+    if(a[i-1]===b[j-1]){ matched[i-1]=true; i--; j--; }
+    else if(dp[i-1][j] >= dp[i][j-1]) i--; else j--;
+  }
+  return matched;
+}
+
+const hypePerfect = ["เริ่ดดด! เธออ่านถูก สิบสิบสิบ 🎉🍊","ปังสุด! เป๊ะทุกคำ 10/10 ✨🔥","โห แม่นมาก! ครูส้มขอปรบมือให้เลย 👏👏👏","สุดยอด! พูดชัดกริ๊บ ไม่มีที่ติเลย 💯"];
+const hypeHigh = ["เกือบเป๊ะละ! เหลืออีกนิดเดียว ลองดูคำที่ไฮไลต์สีส้มนะ 🔥","ใกล้ปังมากกก! อีกนิดเดียวก็เป๊ะแล้ว 💪","โอ้โห เกือบสมบูรณ์แบบ! เก่งขึ้นเรื่อย ๆ เลยนะ ✨"];
+const hypeMid = ["กล้ามาก! เริ่มจับทางได้แล้วนะ ลองพูดช้า ๆ อีกทีดู 😄","ดีขึ้นเรื่อย ๆ! บางคำยังไม่ชัด ลองใหม่อีกรอบนะ 🎯"];
+const hypeLow = ["ไม่เป็นไรจ้ะ กล้าพูดคือเก่งละ! ลองกด 🔊 ฟังตัวอย่างแล้วพูดตามอีกทีนะ 🍊","เริ่มต้นดีมาก! ลองฟังตัวอย่างก่อนแล้วพูดตามช้า ๆ นะ 💛"];
+function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+
+function scoreSpeech(heardText){
+  const target = currentSpeakSentence();
+  const targetWords = normWords(target);
+  const heardWords = normWords(heardText);
+  const matched = lcsMatch(targetWords, heardWords);
+  const matchedCount = matched.filter(Boolean).length;
+  const accuracy = targetWords.length ? matchedCount / targetWords.length : 0;
+
+  const targetEl = document.getElementById('speakTarget');
+  targetEl.innerHTML = targetWords.map((w,i) => `<span class="word-tag ${matched[i] ? 'ok' : 'no'}">${w}</span>`).join(' ');
+
+  const transcriptEl = document.getElementById('speakTranscript');
+  transcriptEl.style.display = 'block';
+  transcriptEl.innerHTML = `<b>ครูส้มได้ยินว่า:</b> "${heardText}"`;
+
+  const fb = document.getElementById('speakFeedback');
+  fb.style.display = 'block';
+  fb.className = 'speak-feedback';
+  addCourage(3); /* every spoken attempt counts, whatever the accuracy turns out to be */
+
+  let tier, msg, gained;
+  if(accuracy >= 0.999){
+    tier = 'perfect'; msg = pick(hypePerfect); gained = 10;
+    speakPerfectCount++; document.getElementById('speakPerfectVal').textContent = speakPerfectCount;
+    setMood('happy', ['speakMascot']); setTimeout(() => setMood(null, ['speakMascot']), 1000);
+  } else if(accuracy >= 0.7){
+    tier = 'high'; msg = pick(hypeHigh); gained = 6;
+    setMood('happy', ['speakMascot']); setTimeout(() => setMood(null, ['speakMascot']), 900);
+  } else if(accuracy >= 0.4){
+    tier = 'mid'; msg = pick(hypeMid); gained = 3;
+    setMood('think', ['speakMascot']); setTimeout(() => setMood(null, ['speakMascot']), 900);
+  } else {
+    tier = 'low'; msg = pick(hypeLow); gained = 1;
+    setMood('think', ['speakMascot']); setTimeout(() => setMood(null, ['speakMascot']), 900);
+  }
+  fb.classList.add(tier);
+  addScore(gained);
+  const missedWords = targetWords.filter((w,i) => !matched[i]);
+  const detail = missedWords.length
+    ? `เป๊ะ ${matchedCount}/${targetWords.length} คำ — คำที่ยังไม่ชัด: ${missedWords.join(', ')}`
+    : `เป๊ะครบทุกคำ ${matchedCount}/${targetWords.length}`;
+  fb.innerHTML = `${msg}<div class="fb-detail">${detail}</div>`;
+}
+
+function initRecognition(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){
+    document.getElementById('micBtn').style.display = 'none';
+    const note = document.createElement('div');
+    note.className = 'speak-transcript';
+    note.style.display = 'block';
+    note.textContent = '🙈 เบราว์เซอร์นี้ยังไม่รองรับไมค์ ลองเปิดด้วย Chrome บนมือถือหรือคอม หรือพิมพ์แทนด้านล่างนี้นะ';
+    document.querySelector('.speak-controls').after(note);
+    document.getElementById('speakFallbackRow').style.display = 'flex';
+    return null;
+  }
+  const r = new SR();
+  r.lang = 'en-US';
+  r.interimResults = true;
+  r.maxAlternatives = 1;
+  r.continuous = false;
+  r.onstart = () => {
+    recognizing = true;
+    document.getElementById('micBtn').classList.add('listening');
+    document.getElementById('micLabel').textContent = 'กำลังฟัง... พูดเลย!';
+  };
+  r.onresult = (e) => {
+    let text = '';
+    for(let i=0; i<e.results.length; i++){ text += e.results[i][0].transcript; }
+    document.getElementById('speakTranscript').style.display = 'block';
+    document.getElementById('speakTranscript').innerHTML = `<b>ครูส้มได้ยินว่า:</b> "${text}"`;
+    if(e.results[e.results.length-1].isFinal){ scoreSpeech(text); }
+  };
+  r.onerror = () => {
+    document.getElementById('micLabel').textContent = 'ลองอีกทีนะ 🎤';
+  };
+  r.onend = () => {
+    recognizing = false;
+    document.getElementById('micBtn').classList.remove('listening');
+    if(document.getElementById('micLabel').textContent === 'กำลังฟัง... พูดเลย!'){
+      document.getElementById('micLabel').textContent = 'กดพูดเลย';
+    }
+  };
+  return r;
+}
+recognition = initRecognition();
+
+function toggleListen(){
+  if(!recognition) return;
+  if(recognizing){ recognition.stop(); return; }
+  try{ recognition.start(); } catch(err){ /* already running, ignore */ }
+}
+
+function toggleTypeFallback(){
+  const row = document.getElementById('speakFallbackRow');
+  row.style.display = row.style.display === 'none' ? 'flex' : 'none';
+  if(row.style.display === 'flex'){ document.getElementById('speakTypeInput').focus(); }
+}
+document.getElementById('speakTypeInput').addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){
+    const val = this.value.trim();
+    if(!val) return;
+    scoreSpeech(val);
+    this.value = '';
+  }
+});
+
+/* ---------- attitude & confidence survey (pre/post, for research use) ---------- */
+const surveyQs = [
+  "ฉันรู้สึกกล้าพูด/สื่อสารภาษาอังกฤษมากขึ้น",
+  "ฉันรู้สึกสนุกและเพลิดเพลินกับการเรียนภาษาอังกฤษ",
+  "ฉันมั่นใจว่าจะสื่อสารภาษาอังกฤษในสถานการณ์จริงได้",
+  "ฉันคิดว่าภาษาอังกฤษมีประโยชน์และอยากใช้ในชีวิตประจำวัน",
+  "ฉันอยากฝึกฝนภาษาอังกฤษเพิ่มเติมด้วยตนเองต่อไป"
+];
+const surveyAnswers = {}; // {qIndex: value}
+const surveyWrap = document.getElementById('surveyItems');
+surveyQs.forEach((q, i)=>{
+  const item = document.createElement('div');
+  item.className = 'survey-item';
+  let btns = '';
+  for(let v=1; v<=5; v++){ btns += `<button data-q="${i}" data-v="${v}" onclick="pickLikert(${i},${v},this)">${v}</button>`; }
+  item.innerHTML = `<div class="survey-q">${i+1}. ${q}</div>
+    <div class="likert">${btns}</div>
+    <div class="likert-labels"><span>ไม่เห็นด้วยอย่างยิ่ง</span><span>เห็นด้วยอย่างยิ่ง</span></div>`;
+  surveyWrap.appendChild(item);
+});
+function pickLikert(qIdx, val, btn){
+  surveyAnswers[qIdx] = val;
+  [...btn.parentElement.children].forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+let surveyPreAvg = null, surveyPostAvg = null;
+function saveSurvey(stage){
+  const vals = Object.values(surveyAnswers);
+  if(vals.length < surveyQs.length){
+    alert('ตอบให้ครบทุกข้อก่อนนะ (' + vals.length + '/' + surveyQs.length + ')');
+    return;
+  }
+  const avg = vals.reduce((a,b)=>a+b,0) / vals.length;
+  if(stage === 'pre'){ surveyPreAvg = avg; } else { surveyPostAvg = avg; }
+  renderSurveyResult();
+  addCourage(3);
+}
+function renderSurveyResult(){
+  const result = document.getElementById('surveyResult');
+  result.style.display = 'block';
+  const barPre = document.getElementById('barPre');
+  const barPost = document.getElementById('barPost');
+  const pre = surveyPreAvg || 0, post = surveyPostAvg || 0;
+  barPre.style.width = (pre/5*100) + '%';
+  barPre.textContent = surveyPreAvg ? pre.toFixed(1) + '/5' : '';
+  barPost.style.width = (post/5*100) + '%';
+  barPost.textContent = surveyPostAvg ? post.toFixed(1) + '/5' : '';
+  const note = document.getElementById('surveyNote');
+  if(surveyPreAvg && surveyPostAvg){
+    const diff = (surveyPostAvg - surveyPreAvg).toFixed(1);
+    note.textContent = diff > 0
+      ? `📈 เจตคติและความมั่นใจเพิ่มขึ้น ${diff} จุด — ข้อมูลนี้ใช้เทียบผลก่อน-หลังในงานวิจัยได้เลย`
+      : (diff < 0 ? `📉 คะแนนลดลง ${Math.abs(diff)} จุด ลองดูว่ากิจกรรมช่วงไหนที่อาจต้องปรับ` : `คะแนนเท่าเดิม ลองสังเกตเพิ่มเติมในแต่ละข้อ`);
+  } else if(surveyPreAvg){
+    note.textContent = 'บันทึกผลก่อนเรียนแล้ว — ลองทำกิจกรรมด้านบนแล้วค่อยกลับมาบันทึก "หลังเรียน" นะ';
+  } else {
+    note.textContent = 'บันทึกผลหลังเรียนแล้ว — ลองบันทึก "ก่อนเรียน" ไว้เทียบด้วยนะ (ทำได้ทุกเมื่อ)';
+  }
+}
+</script>
+</body>
+</html>
